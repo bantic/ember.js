@@ -50,7 +50,7 @@ var slice = [].slice;
 */
 var EmberRouter = EmberObject.extend(Evented, {
   /**
-    The `location` property determines the type of URL's that your
+    The `location` property determines the type of URL that your
     application will use.
 
     The following location types are currently available:
@@ -98,7 +98,7 @@ var EmberRouter = EmberObject.extend(Evented, {
 
   /**
     Initializes the current router instance and sets up the change handling
-    event listeners used by the instances `location` implementation.
+    event listeners used by the instance's `location` implementation.
 
     A property named `initialURL` will be used to determine the initial URL.
     If no value is found `/` will be used.
