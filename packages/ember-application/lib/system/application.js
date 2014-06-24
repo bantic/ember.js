@@ -287,7 +287,8 @@ var Application = Namespace.extend(DeferredMixin, {
     @return {Ember.Container} the configured container
   */
   buildContainer: function() {
-    var container = this.__container__ = Application.buildContainer(this);
+    var namespace = get(this, 'namespace') || this;
+    var container = this.__container__ = Application.buildContainer(namespace);
 
     return container;
   },
@@ -1002,11 +1003,11 @@ Application.reopenClass({
   @return {*} the resolved value for a given lookup
 */
 function resolverFor(namespace) {
-  if (namespace.get('resolver')) {
+  if (get(namespace, 'resolver')){
     Ember.deprecate('Application.resolver is deprecated in favor of Application.Resolver', false);
   }
 
-  var ResolverClass = namespace.get('resolver') || namespace.get('Resolver') || DefaultResolver;
+  var ResolverClass = get(namespace, 'resolver') || get(namespace, 'Resolver') || DefaultResolver;
   var resolver = ResolverClass.create({
     namespace: namespace
   });

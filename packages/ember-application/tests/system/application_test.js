@@ -100,6 +100,27 @@ test("acts like a namespace", function() {
   equal(app.Foo.toString(), "TestApp.Foo", "Classes pick up their parent namespace");
 });
 
+test("can use a passed-in namespace", function() {
+  var lookup = Ember.lookup = {}, app, MyNamespace, created = false;
+  var indexRoute;
+
+  MyNamespace = Ember.Application.extend({});
+  MyNamespace.IndexRoute = Ember.Route.extend({
+    init: function(){
+      this._super();
+      created = true;
+    }
+  });
+
+  run(function() {
+    app = Application.create({rootElement: '#two', router: false, namespace: MyNamespace});
+    indexRoute = app.__container__.lookup('route:index');
+  });
+
+  Ember.BOOTED = false;
+  ok(created, 'did create index route');
+});
+
 QUnit.module("Ember.Application initialization", {
   teardown: function() {
     if (app) {
